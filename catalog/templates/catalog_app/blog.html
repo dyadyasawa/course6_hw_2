@@ -1,0 +1,25 @@
+{% extends 'catalog_app/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<div class="container">
+    <div class="text-end">
+        <a class="btn btn-secondary m-3" href="{% url 'catalog:blog_create' %}">Добавить</a>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
