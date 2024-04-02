@@ -1,0 +1,43 @@
+{% extends 'catalog_app/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<div class="container">
+
+    <div class="row">
+
+         <div class="col-3">
+
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                       <h5 class="card-title">{{ object.title }}</h5>
+                       <p class="card-text">{{ object.body }}</p>
+
+                    </div>
+                    <h6 class="text-center">Просмотры: {{ object.view_count }}</h6>
+                </div>
+         </div>
+        <div  class="col-9">
+            <ul class="list">
+                <li><span style="font-size: 20px">Какое-то описание.</span></li>
+                <li><span style="font-size: 20px">И еще какое-то описание.</span></li>
+                <li><span style="font-size: 20px">И еще одно.</span></li>
+            </ul>
+        </div>
+
+    </div>
+
+    </div>
+</div>
+<div class="container">
+        <div class="text-end">
+            <a class="btn btn-warning m-3" href="{% url 'catalog:blog_update' object.pk %}">Редактировать</a>
+            <a class="btn btn-danger m-3" href="{% url 'catalog:blog_delete' object.pk %}">Удалить</a>
+        </div>
+</div>
+
+{% endblock %}

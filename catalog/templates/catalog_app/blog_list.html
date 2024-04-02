@@ -1,0 +1,31 @@
+{% extends 'catalog_app/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<div class="container">
+    <div class="text-end">
+        <a class="btn btn-secondary m-3" href="{% url 'catalog:blog_create' %}">Добавить</a>
+    </div>
+    <div class="row">
+        {% for object in object_list %}
+         <div class="col-3">
+
+                        <div class="card" style="width: 18rem;">
+                          <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">{{ object.title }}</h5>
+                            <p class="card-text">{{ object.body }}</p>
+                            <a href="{% url 'catalog:blog_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
+                          </div>
+                        </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+    </div>
+</div>
+{% endblock %}
