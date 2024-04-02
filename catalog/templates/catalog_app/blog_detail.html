@@ -12,7 +12,7 @@
          <div class="col-3">
 
                 <div class="card" style="width: 18rem;">
-                    <img src="/media/blog/Смайлик.jpeg" class="card-img-top" alt="...">
+                    <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
                     <div class="card-body">
                        <h5 class="card-title">{{ object.title }}</h5>
                        <p class="card-text">{{ object.body }}</p>
@@ -32,4 +32,11 @@
 
     </div>
 </div>
+<div class="container">
+        <div class="text-end">
+            <a class="btn btn-warning m-3" href="{% url 'catalog:blog_update' object.pk %}">Редактировать</a>
+            <a class="btn btn-danger m-3" href="{% url 'catalog:blog_delete' object.pk %}">Удалить</a>
+        </div>
+</div>
+
 {% endblock %}

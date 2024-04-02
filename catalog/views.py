@@ -26,7 +26,7 @@ class ProductDetailView(DetailView):
 
 class BlogListView(ListView):
     model = Blog
-    template_name = 'catalog_app/blog.html'
+    template_name = 'catalog_app/blog_list.html'
 
 
 class BlogDetailView(DetailView):
@@ -44,4 +44,17 @@ class BlogCreateView(CreateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'
     fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
+    success_url = reverse_lazy('catalog:blog_list')
+
+
+class BlogUpdateView(UpdateView):
+    model = Blog
+    template_name = 'catalog_app/blog_form.html'
+    fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
+    success_url = reverse_lazy('catalog:blog_list')
+
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    template_name = 'catalog_app/blog_confirm_delete.html'
     success_url = reverse_lazy('catalog:blog')

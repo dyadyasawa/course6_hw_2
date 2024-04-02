@@ -14,7 +14,7 @@
          <div class="col-3">
 
                         <div class="card" style="width: 18rem;">
-                          <img src="media/blog/Смайлик.jpeg" class="card-img-top" alt="...">
+                          <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
                           <div class="card-body">
                             <h5 class="card-title">{{ object.title }}</h5>
                             <p class="card-text">{{ object.body }}</p>
