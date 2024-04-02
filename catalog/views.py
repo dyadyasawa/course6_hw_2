@@ -1,21 +1,24 @@
-from django.shortcuts import render
 
-from catalog.models import Product, Category
+from django.views.generic import TemplateView, ListView, DetailView
 
-
-def home(request):
-    context = {
-        'objects_list': Product.objects.all()
-    }
-    return render(request, 'catalog_app/home.html', context)
+from catalog.models import Product
 
 
-def contact(request):
-    return render(request, 'catalog_app/contact.html')
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog_app/home.html'
 
 
-def product_1(request, pk):
-    context = {
-        'object': Product.objects.get(pk=pk)
-    }
-    return render(request, 'catalog_app/product_1.html', context)
+class ContactTemplateView(TemplateView):
+    template_name = 'catalog_app/contact.html'
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog_app/product_1.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(id=self.kwargs.get('pk'))
+
+        return queryset
