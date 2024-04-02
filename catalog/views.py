@@ -29,6 +29,17 @@ class BlogListView(ListView):
     template_name = 'catalog_app/blog.html'
 
 
+class BlogDetailView(DetailView):
+    model = Blog
+    template_name = 'catalog_app/blog_detail.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(id=self.kwargs.get('pk'))
+
+        return queryset
+
+
 class BlogCreateView(CreateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'

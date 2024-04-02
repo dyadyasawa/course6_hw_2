@@ -1,0 +1,35 @@
+{% extends 'catalog_app/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<div class="container">
+
+    <div class="row">
+
+         <div class="col-3">
+
+                <div class="card" style="width: 18rem;">
+                    <img src="/media/blog/Смайлик.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                       <h5 class="card-title">{{ object.title }}</h5>
+                       <p class="card-text">{{ object.body }}</p>
+
+                    </div>
+                </div>
+         </div>
+        <div  class="col-9">
+            <ul class="list">
+                <li><span style="font-size: 20px">Какое-то описание.</span></li>
+                <li><span style="font-size: 20px">И еще какое-то описание.</span></li>
+                <li><span style="font-size: 20px">И еще одно.</span></li>
+            </ul>
+        </div>
+
+    </div>
+
+    </div>
+</div>
+{% endblock %}
