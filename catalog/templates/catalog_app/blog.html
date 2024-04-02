@@ -10,15 +10,21 @@
         <a class="btn btn-secondary m-3" href="{% url 'catalog:blog_create' %}">Добавить</a>
     </div>
     <div class="row">
-        <div class="col-3">
-            <div class="card text-center" style="width: 18rem;">
-                <div class="card-body">
+        {% for object in object_list %}
+         <div class="col-3">
 
+                        <div class="card" style="width: 18rem;">
+                          <img src="..." class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">{{ object.title }}</h5>
+                            <p class="card-text">{{ object.body }}</p>
+                            <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                          </div>
+                        </div>
 
-
-                </div>
             </div>
-        </div>
+        {% endfor %}
+    </div>
 
     </div>
 </div>
