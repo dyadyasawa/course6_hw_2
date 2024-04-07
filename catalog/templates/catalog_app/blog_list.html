@@ -14,10 +14,10 @@
          <div class="col-3">
 
                         <div class="card" style="width: 18rem;">
+                            <h5 class="card-title text-center">{{ object.title }}</h5>
                           <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
                           <div class="card-body">
-                            <h5 class="card-title">{{ object.title }}</h5>
-                            <p class="card-text">{{ object.body }}</p>
+                            <p class="card-text">{{ object.body|slice:":50" }}</p>
                             <a href="{% url 'catalog:blog_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
                           </div>
                         </div>
