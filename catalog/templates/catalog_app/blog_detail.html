@@ -14,19 +14,14 @@
                 <div class="card" style="width: 18rem;">
                     <img src="{{ object.preview|my_media }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                       <h5 class="card-title">{{ object.title }}</h5>
-                       <p class="card-text">{{ object.body }}</p>
-
+                       <h5 class="card-title text-center">{{ object.title }}</h5>
                     </div>
-                    <h6 class="text-center">Просмотры: {{ object.view_count }}</h6>
+                    <h6 class="text-end m-3">Просмотры: {{ object.view_count }}</h6>
                 </div>
          </div>
         <div  class="col-9">
-            <ul class="list">
-                <li><span style="font-size: 20px">Какое-то описание.</span></li>
-                <li><span style="font-size: 20px">И еще какое-то описание.</span></li>
-                <li><span style="font-size: 20px">И еще одно.</span></li>
-            </ul>
+            <br>
+            <h3 class="text-center">{{ object.body }}</h3>
         </div>
 
     </div>
