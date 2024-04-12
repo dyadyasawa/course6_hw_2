@@ -10,5 +10,40 @@ class ProductForm(forms.ModelForm):
         model = Product
         #fields = '__all__'
         fields = ('name', 'description', 'image', 'category', 'price',)
-        #exclude = ('price',)
 
+    def clean_name(self):
+        cleaned_data = self.cleaned_data['name']
+
+        forbidden_words_list = [
+            'казино',
+            'криптовалюта',
+            'крипта',
+            'биржа',
+            'дешево',
+            'бесплатно',
+            'обман',
+            'полиция',
+            'радар'
+        ]
+        if cleaned_data.lower() in forbidden_words_list:
+            raise forms.ValidationError('В названии присутствуют недопустимые слова.')
+        return cleaned_data
+
+    def clean_description(self):
+        cleaned_data = self.cleaned_data['description']
+
+        forbidden_words_list = [
+            'казино',
+            'криптовалюта',
+            'крипта',
+            'биржа',
+            'дешево',
+            'бесплатно',
+            'обман',
+            'полиция',
+            'радар'
+        ]
+        for word in forbidden_words_list:
+            if word in cleaned_data.lower():
+                raise forms.ValidationError('В описании присутствуют недопустимые слова.')
+        return cleaned_data
