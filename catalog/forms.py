@@ -25,8 +25,9 @@ class ProductForm(forms.ModelForm):
             'полиция',
             'радар'
         ]
-        if cleaned_data.lower() in forbidden_words_list:
-            raise forms.ValidationError('В названии присутствуют недопустимые слова.')
+        for word in forbidden_words_list:
+            if word in cleaned_data.lower():
+                raise forms.ValidationError('В названии присутствуют недопустимые слова.')
         return cleaned_data
 
     def clean_description(self):
