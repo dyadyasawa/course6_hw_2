@@ -1,0 +1,33 @@
+{% extends 'catalog_app/base.html' %}
+
+{% block content %}
+
+<div class="col-5">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <h3>Добавление товара</h3>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                {% if object %}
+                <button type="submit" class="btn btn-success">Изменить</button>
+                <a class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                {% else %}
+                <button type="submit" class="btn btn-success">Добавить</button>
+                {% endif %}
+            </form>
+
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

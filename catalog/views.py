@@ -2,6 +2,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
+from catalog.forms import ProductForm
 from catalog.models import Product, Blog
 
 
@@ -23,6 +24,26 @@ class ProductDetailView(DetailView):
         queryset = queryset.filter(id=self.kwargs.get('pk'))
 
         return queryset
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog_app/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:home')
 
 
 class BlogListView(ListView):
