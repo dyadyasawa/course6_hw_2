@@ -3,36 +3,68 @@
 {% block content %}
 <h1 class="text-center">Интернет-магазин "Идейка!"</h1>
 <br>
-<div class="col-5">
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title">
-                {% if object %}
-                <h3>Редактирование товара</h3>
-                {% else %}
-                <h3>Добавление товара</h3>
-                {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+
+            <div class="col-1">
+            </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        {% if object %}
+                            <h3>Редактирование товара</h3>
+                        {% else %}
+                            <h3>Добавление товара</h3>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    {% if object %}
+                        <button type="submit" class="btn btn-success">Подтвердить</button>
+                        <a class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                    {% else %}
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                    {% endif %}
+
+
+                </div>
             </div>
         </div>
-        <div class="card-body">
 
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
+            <div class="col-2">
+            </div>
 
-                {% if object %}
-                <button type="submit" class="btn btn-success">Изменить</button>
-                <a class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
-                {% else %}
-                <button type="submit" class="btn btn-success">Добавить</button>
-                {% endif %}
-            </form>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Версии товара
+                    </h3>
+                </div>
+                <div class="card-body">
+
+                    {{ formset.management_form }}
+
+                    {% for form in formset.forms %}
+                        {{ form.as_p }}
+                    {% endfor %}
+
+                </div>
+            </div>
+
 
         </div>
-        <div class="card-footer">
 
-        </div>
-    </div>
-</div>
+            <div class="col-1">
+            </div>
+
+            </div>
+    </form>
 
 {% endblock %}
