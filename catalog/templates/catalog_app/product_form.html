@@ -26,7 +26,7 @@
                     {{ form.as_p }}
 
                     {% if object %}
-                        <button type="submit" class="btn btn-success">Подтвердить</button>
+                        <button type="submit" class="btn btn-success">Подтвердить изменения</button>
                         <a class="btn btn-outline-danger" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
                     {% else %}
                         <button type="submit" class="btn btn-success">Добавить</button>
@@ -43,9 +43,9 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">
-                        Версии товара
-                    </h3>
+                    <h4 class="card-title">
+                        Версия товара
+                    </h4>
                 </div>
                 <div class="card-body">
 
@@ -53,6 +53,10 @@
 
                     {% for form in formset.forms %}
                         {{ form.as_p }}
+                        {% if not forloop.last %}
+                            <hr>
+                            <hr>
+                        {% endif %}
                     {% endfor %}
 
                 </div>

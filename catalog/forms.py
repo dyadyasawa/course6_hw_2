@@ -1,14 +1,23 @@
 
+from django.forms import ModelForm
 from django import forms
 
 from catalog.models import Product, Version
 
 
-class ProductForm(forms.ModelForm):
+class StyleMixin(ModelForm):
+    def __init_(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items:
+            field.widget.attrs["class"] = "form-control"
+
+
+class ProductForm(StyleMixin):
 
     class Meta:
         model = Product
-        #fields = '__all__'
+        # fields = '__all__'
         fields = ('name', 'description', 'image', 'category', 'price',)
 
     def clean_name(self):
@@ -49,7 +58,8 @@ class ProductForm(forms.ModelForm):
                 raise forms.ValidationError('В описании присутствуют недопустимые слова.')
         return cleaned_data
 
-class VersionForm(forms.ModelForm):
+
+class VersionForm(StyleMixin):
 
     class Meta:
         model = Version
