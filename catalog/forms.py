@@ -1,15 +1,14 @@
 
-from django.forms import ModelForm
 from django import forms
 
 from catalog.models import Product, Version
 
 
-class StyleMixin(ModelForm):
-    def __init_(self, *args, **kwargs):
+class StyleMixin(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field_name, field in self.fields.items:
+        for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "form-control"
 
 
