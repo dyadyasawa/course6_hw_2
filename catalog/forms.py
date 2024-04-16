@@ -32,10 +32,6 @@ class ProductForm(StyleMixin):
         # fields = '__all__'
         fields = ('name', 'description', 'image', 'category', 'price',)
 
-    # widgets = {
-    #     'current_version_indicator': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    # }
-
     def clean_name(self):
         cleaned_data = self.cleaned_data['name']
 

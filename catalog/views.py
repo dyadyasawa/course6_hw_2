@@ -4,7 +4,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from pytils.translit import slugify
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
 
 
 class ProductListView(ListView):
