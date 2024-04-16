@@ -17,6 +17,17 @@
                         <div class="card-body text-center">
                            <h5>Название версии: {{ object.version_name }}</h5>
                         </div>
+                        <div class="card-footer">
+                            {% if object.current_version_indicator %}
+                            <h6>
+                                Текущая версия
+                            </h6>
+                            {% else %}
+                            <h6>
+                                Не является текущей
+                            </h6>
+                            {% endif %}
+                        </div>
 
                     </div>
              </div>

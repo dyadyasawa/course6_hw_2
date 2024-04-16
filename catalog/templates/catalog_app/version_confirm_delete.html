@@ -2,6 +2,19 @@
 
 {% block content %}
 
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<br>
+
+<div class="container">
+    <h5 class="text-center">Действительно желаете удалить версию '{{object.version_number}}' товара '{{object.product}}'?</h5>
+        <div class="text-center">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <a class="btn btn-light m-3" href="{% url 'catalog:version_list' %}">Отменить</a>
+                <button type="submit" class="btn btn-danger m-3">Да, удалить</button>
+            </form>
+        </div>
+</div>
 
 
 {% endblock %}
