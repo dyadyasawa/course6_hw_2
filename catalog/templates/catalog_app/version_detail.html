@@ -1,7 +1,32 @@
 {% extends 'catalog_app/base.html' %}
 
 {% block content %}
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<div class="container">
 
+        <div class="row">
 
+             <div class="col-5">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title text-center">
+                                <h4>{{ object.product }}</h4>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                           <h5>Название версии: {{ object.version_name }}</h5>
+                        </div>
+
+                    </div>
+             </div>
+            <div  class="col-7">
+                <br>
+                <h3 class="text-center"></h3>
+            </div>
+
+        </div>
+
+</div>
 
 {% endblock %}
