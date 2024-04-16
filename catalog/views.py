@@ -33,24 +33,24 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-
-        if self.request.method == 'POST':
-            formset = VersionFormset(self.request.POST, instance=self.object)
-        else:
-            formset = VersionFormset(instance=self.object)
-        context_data['formset'] = formset
-        return context_data
-
-    def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data['formset']
-
-        if formset.is_valid():
-            formset.save()
-        return super().form_valid(form)
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+    #
+    #     if self.request.method == 'POST':
+    #         formset = VersionFormset(self.request.POST, instance=self.object)
+    #     else:
+    #         formset = VersionFormset(instance=self.object)
+    #     context_data['formset'] = formset
+    #     return context_data
+    #
+    # def form_valid(self, form):
+    #     context_data = self.get_context_data()
+    #     formset = context_data['formset']
+    #
+    #     if formset.is_valid():
+    #         formset.save()
+    #     return super().form_valid(form)
 
 
 class ProductUpdateView(UpdateView):
@@ -59,24 +59,24 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-
-        if self.request.method == 'POST':
-            formset = VersionFormset(self.request.POST, instance=self.object)
-        else:
-            formset = VersionFormset(instance=self.object)
-        context_data['formset'] = formset
-        return context_data
-
-    def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data['formset']
-
-        if formset.is_valid():
-            formset.save()
-        return super().form_valid(form)
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+    #
+    #     if self.request.method == 'POST':
+    #         formset = VersionFormset(self.request.POST, instance=self.object)
+    #     else:
+    #         formset = VersionFormset(instance=self.object)
+    #     context_data['formset'] = formset
+    #     return context_data
+    #
+    # def form_valid(self, form):
+    #     context_data = self.get_context_data()
+    #     formset = context_data['formset']
+    #
+    #     if formset.is_valid():
+    #         formset.save()
+    #     return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
@@ -149,3 +149,31 @@ class BlogDeleteView(DeleteView):
     model = Blog
     template_name = 'catalog_app/blog_confirm_delete.html'
     success_url = reverse_lazy('catalog:blog_list')
+
+
+class VersionCreateView(CreateView):
+    model = Version
+    form_class = VersionForm
+    template_name = 'catalog_app/version_form.html'
+    success_url = reverse_lazy('catalog:version_list')
+
+class VersionListView(ListView):
+    model = Version
+    template_name = 'catalog_app/version_list.html'
+#
+class VersionDetailView(DetailView):
+    model = Version
+    template_name = 'catalog_app/version_detail.html'
+
+
+class VersionUpdateView(UpdateView):
+    model = Version
+    form_class = VersionForm
+    template_name = 'catalog_app/version_form.html'
+    success_url = reverse_lazy('catalog:version_list')
+
+
+class VersionDeleteView(DeleteView):
+    model = Version
+    template_name = 'catalog_app/version_confirm_delete.html'
+    success_url = reverse_lazy('catalog:version_list')
