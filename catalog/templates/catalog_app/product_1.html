@@ -11,10 +11,15 @@
             <div class="card text-center" style="width: 18rem;">
                 <img src="{{ object.image|my_media }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                <p class="card-text">{{object.description}}</p>
-                <h3 class="card-text">{{object.price}}$</h3>
+                    <p class="card-text">{{object.description}}</p>
+                    <h3 class="card-text">{{object.price}}$</h3>
 
-                <a href="#" class="btn btn-primary">В корзину</a>
+                    <a href="#" class="btn btn-primary">В корзину</a>
+                </div>
+                <div class="card-footer">
+                    <h6>
+                        {{ object.version_set.current_version_indicator }}
+                    </h6>
                 </div>
             </div>
         </div>
@@ -27,11 +32,10 @@
             </ul>
         </div>
             <div class="col-2">
+
                 <a class="btn btn-warning" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
             </div>
-<!--        <div class="col-2">-->
-<!--            <a href="{% url 'catalog:version_list' %}" class="btn btn-primary">Подробнее о версии</a>-->
-<!--        </div>-->
+
     </div>
 </div>
 {% endblock %}

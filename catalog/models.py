@@ -60,7 +60,7 @@ class Version(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
     version_number = models.PositiveIntegerField(verbose_name='номер версии')
     version_name = models.TextField(verbose_name='название версии')
-    current_version_indicator = models.BooleanField(default=True, verbose_name='признак текущей версии')
+    current_version_indicator = models.BooleanField(default=False, verbose_name='признак текущей версии')
 
     def __str__(self):
         return f'{self.product}, {self.version_number}, {self.version_name}'

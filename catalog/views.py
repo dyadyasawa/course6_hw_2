@@ -11,6 +11,10 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog_app/home.html'
 
+    # def get_queryset(self, *args, **kwargs):
+    #     queryset = super().get_queryset(*args, **kwargs)
+    #     queryset = queryset.filter(price=5000)
+    #     return queryset
 
 class ContactTemplateView(TemplateView):
     template_name = 'catalog_app/contact.html'
@@ -26,6 +30,15 @@ class ProductDetailView(DetailView):
 
         return queryset
 
+    # def get_context_data(self, *args, **kwargs):
+    #     context_data = super().get_context_data(*args, **kwargs)
+    #     product_data = Product.objects.get(pk=self.kwargs.get('pk'))
+    #     context_data['product_pk'] = product_data.pk
+    #     context_data['name'] = f'{product_data.name}'
+    #     for product in context_data.get('object_list'):
+    #         product.version = product.version_set.filter(current_version_indicator=True).first()
+    #     return context_data
+
 
 class ProductCreateView(CreateView):
     model = Product
@@ -33,24 +46,24 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
-    # def get_context_data(self, **kwargs):
-    #     context_data = super().get_context_data(**kwargs)
-    #     VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-    #
-    #     if self.request.method == 'POST':
-    #         formset = VersionFormset(self.request.POST, instance=self.object)
-    #     else:
-    #         formset = VersionFormset(instance=self.object)
-    #     context_data['formset'] = formset
-    #     return context_data
-    #
-    # def form_valid(self, form):
-    #     context_data = self.get_context_data()
-    #     formset = context_data['formset']
-    #
-    #     if formset.is_valid():
-    #         formset.save()
-    #     return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+
+        if self.request.method == 'POST':
+            formset = VersionFormset(self.request.POST, instance=self.object)
+        else:
+            formset = VersionFormset(instance=self.object)
+        context_data['formset'] = formset
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        formset = context_data['formset']
+
+        if formset.is_valid():
+            formset.save()
+        return super().form_valid(form)
 
 
 class ProductUpdateView(UpdateView):
@@ -59,24 +72,24 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
-    # def get_context_data(self, **kwargs):
-    #     context_data = super().get_context_data(**kwargs)
-    #     VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-    #
-    #     if self.request.method == 'POST':
-    #         formset = VersionFormset(self.request.POST, instance=self.object)
-    #     else:
-    #         formset = VersionFormset(instance=self.object)
-    #     context_data['formset'] = formset
-    #     return context_data
-    #
-    # def form_valid(self, form):
-    #     context_data = self.get_context_data()
-    #     formset = context_data['formset']
-    #
-    #     if formset.is_valid():
-    #         formset.save()
-    #     return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+
+        if self.request.method == 'POST':
+            formset = VersionFormset(self.request.POST, instance=self.object)
+        else:
+            formset = VersionFormset(instance=self.object)
+        context_data['formset'] = formset
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        formset = context_data['formset']
+
+        if formset.is_valid():
+            formset.save()
+        return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
@@ -156,14 +169,14 @@ class VersionCreateView(CreateView):
     form_class = VersionForm
     template_name = 'catalog_app/version_form.html'
     success_url = reverse_lazy('catalog:version_list')
-
-class VersionListView(ListView):
-    model = Version
-    template_name = 'catalog_app/version_list.html'
 #
-class VersionDetailView(DetailView):
-    model = Version
-    template_name = 'catalog_app/version_detail.html'
+# class VersionListView(ListView):
+#     model = Version
+#     template_name = 'catalog_app/version_list.html'
+# #
+# class VersionDetailView(DetailView):
+#     model = Version
+#     template_name = 'catalog_app/version_detail.html'
 
 
 class VersionUpdateView(UpdateView):
@@ -171,9 +184,9 @@ class VersionUpdateView(UpdateView):
     form_class = VersionForm
     template_name = 'catalog_app/version_form.html'
     success_url = reverse_lazy('catalog:version_list')
-
-
-class VersionDeleteView(DeleteView):
-    model = Version
-    template_name = 'catalog_app/version_confirm_delete.html'
-    success_url = reverse_lazy('catalog:version_list')
+#
+#
+# class VersionDeleteView(DeleteView):
+#     model = Version
+#     template_name = 'catalog_app/version_confirm_delete.html'
+#     success_url = reverse_lazy('catalog:version_list')
