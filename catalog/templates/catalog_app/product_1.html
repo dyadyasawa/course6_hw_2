@@ -26,9 +26,12 @@
                 <li><span style="font-size: 20px">И еще один тезис с описанием плюсов или минусов товара.</span></li>
             </ul>
         </div>
-        <div class="col-2">
-            <a href="{% url 'catalog:version_list' %}" class="btn btn-primary">Подробнее о версии</a>
-        </div>
+            <div class="col-2">
+                <a class="btn btn-warning" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+            </div>
+<!--        <div class="col-2">-->
+<!--            <a href="{% url 'catalog:version_list' %}" class="btn btn-primary">Подробнее о версии</a>-->
+<!--        </div>-->
     </div>
 </div>
 {% endblock %}
