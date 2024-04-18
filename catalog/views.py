@@ -13,7 +13,7 @@ class ProductListView(ListView):
 
     # def get_queryset(self, *args, **kwargs):
     #     queryset = super().get_queryset(*args, **kwargs)
-    #     queryset = queryset.filter(price=5000)
+    #     queryset = queryset.filter(price=5000) # работает только если price=..., а если price>... не работает
     #     return queryset
 
 class ContactTemplateView(TemplateView):
@@ -29,15 +29,6 @@ class ProductDetailView(DetailView):
         queryset = queryset.filter(id=self.kwargs.get('pk'))
 
         return queryset
-
-    # def get_context_data(self, *args, **kwargs):
-    #     context_data = super().get_context_data(*args, **kwargs)
-    #     product_data = Product.objects.get(pk=self.kwargs.get('pk'))
-    #     context_data['product_pk'] = product_data.pk
-    #     context_data['name'] = f'{product_data.name}'
-    #     for product in context_data.get('object_list'):
-    #         product.version = product.version_set.filter(current_version_indicator=True).first()
-    #     return context_data
 
 
 class ProductCreateView(CreateView):

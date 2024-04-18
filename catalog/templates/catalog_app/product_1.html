@@ -18,7 +18,13 @@
                 </div>
                 <div class="card-footer">
                     <h6>
-                        {{ object.version_set.current_version_indicator }}
+                        {% for item in object.version_set.all %}
+                            {% if item.current_version_indicator == True %}
+                                Актуальная версия
+                            {% else %}
+                                Неактуальная версия
+                            {% endif %}
+                        {% endfor %}
                     </h6>
                 </div>
             </div>
