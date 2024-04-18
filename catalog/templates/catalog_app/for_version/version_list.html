@@ -1,0 +1,37 @@
+{% extends 'catalog_app/base.html' %}
+
+{% block content %}
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+
+<div class="container-xxl">
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-secondary" href="{% url 'catalog:version_create' %}">Добавить версию</a>
+    </div>
+
+    <div class="row">
+            {% for object in object_list %}
+            <div class="col">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Товар: {{object.product}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Номер версии: {{object.version_number}}</h5>
+                        <p class="card-text">О версии: {{object.version_name|slice:":100" }}</p>
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="{% url 'catalog:version_detail' object.pk %}">Подробнее</a>
+                        <a class="btn btn-warning" href="{% url 'catalog:version_update' object.pk %}">Редактировать</a>
+                        <a class="btn btn-danger" href="{% url 'catalog:version_delete' object.pk %}">Удалить</a>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

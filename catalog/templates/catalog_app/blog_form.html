@@ -7,18 +7,21 @@
     <h1 class="text-center">Интернет-магазин "Идейка!"</h1>
             <div class="container-xxl">
                 <div class="col-12">
-                    <div class="col-6">
-                        <div class="card text-center" style="width: 18rem;">
+
 
                                 <div class="card-body">
+                                    <br>
                                     <form method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        {{form.as_p}}
-                                        <button type="submit" class="btn btn-success">Сохранить</button>
+                                        <div class="container text-center w-50">
+                                            {{form.as_p}}
+                                        </div>
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-success">Сохранить</button>
+                                        </div>
                                     </form>
                                 </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 {% endblock %}

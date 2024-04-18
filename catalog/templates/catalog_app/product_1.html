@@ -11,14 +11,25 @@
             <div class="card text-center" style="width: 18rem;">
                 <img src="{{ object.image|my_media }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                <p class="card-text">{{object.description}}</p>
-                <h3 class="card-text">{{object.price}}$</h3>
+                    <p class="card-text">{{object.description}}</p>
+                    <h3 class="card-text">{{object.price}}$</h3>
 
-                <a href="#" class="btn btn-primary">В корзину</a>
+                    <a href="#" class="btn btn-primary">В корзину</a>
+                </div>
+                <div class="card-footer">
+                    <h6>
+                        {% for item in object.version_set.all %}
+                            {% if item.current_version_indicator == True %}
+                                Актуальная версия
+                            {% else %}
+                                Неактуальная версия
+                            {% endif %}
+                        {% endfor %}
+                    </h6>
                 </div>
             </div>
         </div>
-        <div  class="col-9">
+        <div  class="col-7">
             <ul class="list">
                 <li><span style="font-size: 20px">Тезис с описанием плюсов или минусов товара.</span></li>
                 <li><span style="font-size: 20px">Второй тезис с описанием плюсов или минусов товара.</span></li>
@@ -26,6 +37,11 @@
                 <li><span style="font-size: 20px">И еще один тезис с описанием плюсов или минусов товара.</span></li>
             </ul>
         </div>
+            <div class="col-2">
+
+                <a class="btn btn-warning" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+            </div>
+
     </div>
 </div>
 {% endblock %}
