@@ -1,0 +1,33 @@
+{% extends 'catalog_app/base.html' %}
+
+{% block content %}
+<h1 class="text-center">Интернет-магазин "Идейка!"</h1>
+<br>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+
+            <div class="col-1">
+            </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-success">Войти</button>
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </form>
+
+{% endblock %}
