@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -32,7 +33,7 @@ class ProductDetailView(DetailView):
         return queryset
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
@@ -50,9 +51,11 @@ class ProductCreateView(CreateView):
         return context_data
 
     def form_valid(self, form):
-        # product = form.save()
-        # product.owner = self.request.user
-        # product.save()
+
+        product = form.save()
+        product.creator = self.request.user
+        product.save()
+
         context_data = self.get_context_data()
         formset = context_data['formset']
 

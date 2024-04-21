@@ -28,6 +28,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, editable=False, verbose_name='Дата изменения')
 
+    creator = models.ForeignKey('users.User', on_delete=models.SET_NULL, **NULLABLE, verbose_name='Создатель')
+
     def __str__(self):
         return f'{self.name}'
 
