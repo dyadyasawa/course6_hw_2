@@ -33,7 +33,7 @@ class ProductDetailView(DetailView):
         return queryset
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(CreateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm

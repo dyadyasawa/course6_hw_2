@@ -1,17 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from catalog.models import NULLABLE
-
 
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='Email')
-    phone = models.CharField(max_length=50, verbose_name='телефон', **NULLABLE, help_text='Введите номер телефона')
-    avatar = models.ImageField(upload_to='avatars/', **NULLABLE, verbose_name='Аватар')
+    phone = models.CharField(max_length=50, verbose_name='телефон', blank=True, null=True, help_text='Введите номер телефона')
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, verbose_name='Аватар')
     country = models.CharField(max_length=50, verbose_name='страна', help_text='Введите название страны')
 
-    token = models.CharField(max_length=50, verbose_name='Token', **NULLABLE)
+    token = models.CharField(max_length=50, verbose_name='Token', blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
