@@ -9,7 +9,9 @@ class StyleMixin(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            field.widget.attrs["class"] = "form-control"
+            if field_name != 'current_version_indicator':
+
+                field.widget.attrs["class"] = "form-control"
 
 
 
@@ -55,7 +57,3 @@ class VersionForm(StyleMixin):
     class Meta:
         model = Version
         fields = '__all__'
-        widgets = {
-            'current_version_indicator': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
