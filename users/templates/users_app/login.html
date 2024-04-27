@@ -22,7 +22,7 @@
                     {{ form.as_p }}
 
                     <button type="submit" class="btn btn-success">Войти</button>
-<!--                    <a class="p-l-2 btn btn-primary" href="#">Восстановить пароль</a>-->
+                    <a class="p-l-2 btn btn-primary" href="{% url 'users:password_recovery' %}">Забыли пароль?</a>
 
                 </div>
             </div>

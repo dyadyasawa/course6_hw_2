@@ -60,6 +60,7 @@ class ProductCreateView(CreateView):
         formset = context_data['formset']
 
         if formset.is_valid():
+            formset.instance = product
             formset.save()
         return super().form_valid(form)
 

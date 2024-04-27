@@ -14,7 +14,6 @@ class StyleMixin(forms.ModelForm):
                 field.widget.attrs["class"] = "form-control"
 
 
-
 class ProductForm(StyleMixin):
 
     forbidden_words_list = [
