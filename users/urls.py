@@ -2,8 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from users.apps import UsersConfig
 from users.forms import LoginCustomForm
-from users.views import UserCreateView, email_verification, RegisterMessageView, PasswordRecoveryView, \
-    create_new_password, PasswordRecoveryMessageView
+from users.views import UserCreateView, email_verification, RegisterMessageView, PasswordRecoveryView, PasswordRecoveryMessageView
 
 app_name = UsersConfig.name
 
@@ -17,6 +16,6 @@ urlpatterns = [
     path('register/message/', RegisterMessageView.as_view(), name='register_message'),
 
     path('password_recovery/', PasswordRecoveryView.as_view(), name='password_recovery'),
-    path('password_recovery/create_new_password/<str:token>', create_new_password, name='new_password'),
+    # path('password_recovery/create_new_password/<str:code>', create_new_password, name='create_new_password'),
     path('password_recovery/message/', PasswordRecoveryMessageView.as_view(), name='recovery_message')
 ]

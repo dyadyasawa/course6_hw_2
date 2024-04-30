@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
@@ -21,6 +22,12 @@ class ProductListView(ListView):
 class ContactTemplateView(TemplateView):
     template_name = 'catalog_app/contact.html'
 
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+        # print(name, phone_number, message)
+        return HttpResponseRedirect('/contact/')
 
 class ProductDetailView(DetailView):
     model = Product
