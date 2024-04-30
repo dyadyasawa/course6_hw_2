@@ -1,4 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
@@ -13,12 +15,19 @@ class ProductListView(ListView):
 
     # def get_queryset(self, *args, **kwargs):
     #     queryset = super().get_queryset(*args, **kwargs)
-    #     queryset = queryset.filter(price=5000) # работает только если price=..., а если price>... не работает
+    #     queryset = queryset.filter(price__lt=5000)
     #     return queryset
+
 
 class ContactTemplateView(TemplateView):
     template_name = 'catalog_app/contact.html'
 
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+        # print(name, phone_number, message)
+        return HttpResponseRedirect('/contact/')
 
 class ProductDetailView(DetailView):
     model = Product
@@ -49,10 +58,16 @@ class ProductCreateView(CreateView):
         return context_data
 
     def form_valid(self, form):
+
+        product = form.save()
+        product.creator = self.request.user
+        product.save()
+
         context_data = self.get_context_data()
         formset = context_data['formset']
 
         if formset.is_valid():
+            formset.instance = product
             formset.save()
         return super().form_valid(form)
 

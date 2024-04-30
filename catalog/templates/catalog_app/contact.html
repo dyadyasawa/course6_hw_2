@@ -22,14 +22,15 @@
                         Связаться с нами
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="post" action="" class="form-floating">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label class="form-label">Имя</label>
                                 <input type="text" name="name" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Номер телефона</label>
-                                <input type="text" name="phone number" class="form-control">
+                                <input type="text" name="phone_number" class="form-control">
                             </div>
 
 

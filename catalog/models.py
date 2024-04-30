@@ -1,8 +1,10 @@
 
 from django.db import models
 
+from users.models import User
 
-NULLABLE = {'blank': True, 'null': True}
+
+# NULLABLE = {'blank': True, 'null': True}
 
 
 class Category(models.Model):
@@ -21,12 +23,14 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='product/', verbose_name='Изображение', **NULLABLE)
+    image = models.ImageField(upload_to='product/', verbose_name='Изображение', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.IntegerField(verbose_name='Цена за покупку')
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, editable=False, verbose_name='Дата изменения')
+
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Создатель')
 
     def __str__(self):
         return f'{self.name}'
@@ -39,9 +43,9 @@ class Product(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=150, verbose_name='заголовок')
-    slug = models.CharField(max_length=150, verbose_name='slug', **NULLABLE)
+    slug = models.CharField(max_length=150, verbose_name='slug', blank=True, null=True)
     body = models.TextField(verbose_name='содержимое')
-    preview = models.ImageField(upload_to='blog/', verbose_name='изображение', **NULLABLE)
+    preview = models.ImageField(upload_to='blog/', verbose_name='изображение', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='дата создания')
     publication_sign = models.BooleanField(default=True, verbose_name='признак публикации')
     view_count = models.PositiveIntegerField(default=0, verbose_name='количество просмотров')
