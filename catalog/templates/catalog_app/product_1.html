@@ -28,6 +28,8 @@
 
                         {% if object.is_published %}
                             Опубликовано
+                        {% else %}
+                            Неопубликовано
                         {% endif %}
                     </h6>
                 </div>
@@ -43,7 +45,7 @@
         </div>
             <div class="col-3">
                 {% if user.is_authenticated %}
-                    {% if user == object.creator %}
+                    {% if user == object.creator or user.is_superuser %}
                         <a class="btn btn-warning m-2" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
                     {% else %}
                         {% if perms.catalog.set_published_status %}
