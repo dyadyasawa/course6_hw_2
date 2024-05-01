@@ -29,6 +29,7 @@ class ContactTemplateView(TemplateView):
         # print(name, phone_number, message)
         return HttpResponseRedirect('/contact/')
 
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog_app/product_1.html'
@@ -40,7 +41,7 @@ class ProductDetailView(DetailView):
         return queryset
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
@@ -72,7 +73,7 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
@@ -98,7 +99,7 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'catalog_app/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:home')
@@ -131,7 +132,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'
     fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
@@ -146,7 +147,7 @@ class BlogCreateView(CreateView):
         return super().form_valid(form)
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'
     fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
@@ -164,7 +165,7 @@ class BlogUpdateView(UpdateView):
         return reverse('catalog:blog_detail', args=[self.kwargs.get('pk')])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     template_name = 'catalog_app/blog_confirm_delete.html'
     success_url = reverse_lazy('catalog:blog_list')
