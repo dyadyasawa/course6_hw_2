@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
@@ -106,24 +106,30 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateIsPublishedView(LoginRequiredMixin, UpdateView):
+class ProductUpdateIsPublishedView(PermissionRequiredMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductIsPublishedForm
+    permission_required = ('set_published_status', )
+
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateDescriptionView(LoginRequiredMixin, UpdateView):
+class ProductUpdateDescriptionView(PermissionRequiredMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductDescriptionForm
+    permission_required = ('can_change_description',)
+
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateCategoryView(LoginRequiredMixin, UpdateView):
+class ProductUpdateCategoryView(PermissionRequiredMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductCategoryForm
+    permission_required = ('can_change_category',)
+
     success_url = reverse_lazy('catalog:home')
 
 
