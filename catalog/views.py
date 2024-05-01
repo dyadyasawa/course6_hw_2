@@ -5,7 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, BlogForm
 from catalog.models import Product, Blog, Version, Category
 
 
@@ -135,7 +135,7 @@ class BlogDetailView(DetailView):
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'
-    fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
+    form_class = BlogForm
     success_url = reverse_lazy('catalog:blog_list')
 
     def form_valid(self, form):

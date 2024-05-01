@@ -1,7 +1,7 @@
 
 from django import forms
 
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Blog
 
 
 class StyleMixin(forms.ModelForm):
@@ -9,7 +9,7 @@ class StyleMixin(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            if field_name != 'current_version_indicator':
+            if field_name != 'current_version_indicator' and field_name != 'publication_sign':
 
                 field.widget.attrs["class"] = "form-control"
 
@@ -49,6 +49,13 @@ class ProductForm(StyleMixin):
             if word in cleaned_data.lower():
                 raise forms.ValidationError('В описании присутствуют недопустимые слова.')
         return cleaned_data
+
+
+class BlogForm(StyleMixin):
+
+    class Meta:
+        model = Blog
+        fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
 
 
 class VersionForm(StyleMixin):
