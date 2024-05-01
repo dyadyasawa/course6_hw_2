@@ -39,31 +39,32 @@
             <div class="col-2">
             </div>
 
-        <div class="col-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        Версия товара
-                    </h4>
+        {% if object and object.creator == user %}
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Версия товара
+                        </h4>
+                    </div>
+                    <div class="card-body">
+
+                        {{ formset.management_form }}
+
+                        {% for form in formset.forms %}
+                            {{ form.as_p }}
+                            {% if not forloop.last %}
+                                <hr>
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
                 </div>
-                <div class="card-body">
 
-                    {{ formset.management_form }}
 
-                    {% for form in formset.forms %}
-                        {{ form.as_p }}
-                        {% if not forloop.last %}
-                            <hr>
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
-
-                </div>
             </div>
-
-
-        </div>
-
+        {% endif %}
             <div class="col-1">
             </div>
 

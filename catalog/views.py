@@ -5,7 +5,8 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from catalog.forms import ProductForm, VersionForm, BlogForm
+from catalog.forms import ProductForm, VersionForm, BlogForm, ProductIsPublishedForm, ProductDescriptionForm, \
+    ProductCategoryForm
 from catalog.models import Product, Blog, Version, Category
 
 
@@ -102,6 +103,27 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'catalog_app/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateIsPublishedView(LoginRequiredMixin, UpdateView):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductIsPublishedForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateDescriptionView(LoginRequiredMixin, UpdateView):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductDescriptionForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateCategoryView(LoginRequiredMixin, UpdateView):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductCategoryForm
     success_url = reverse_lazy('catalog:home')
 
 

@@ -25,6 +25,10 @@
                                 Неактуальная версия
                             {% endif %}
                         {% endfor %}
+
+                        {% if object.is_published %}
+                            Опубликовано
+                        {% endif %}
                     </h6>
                 </div>
             </div>
@@ -39,8 +43,28 @@
         </div>
             <div class="col-3">
                 {% if user.is_authenticated %}
-                    <a class="btn btn-warning" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
-                    <a class="btn btn-danger" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                    {% if user == object.creator %}
+                        <a class="btn btn-warning m-2" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+                    {% else %}
+                        {% if perms.catalog.set_published_status %}
+                            <p>
+                                <a class="btn btn-warning" href="{% url 'catalog:update_product_is_published' object.pk %}">Отменить публиацию</a>
+                            </p>
+                        {% endif %}
+                        {% if perms.catalog.can_change_description %}
+                            <p>
+                                <a class="btn btn-warning" href="{% url 'catalog:update_product_description' object.pk %}">Поменять описание</a>
+                            </p>
+                        {% endif %}
+                        {% if perms.catalog.can_change_category %}
+                            <p>
+                                <a class="btn btn-warning" href="{% url 'catalog:update_product_category' object.pk %}">Поменять категорию</a>
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                    <p>
+                        <a class="btn btn-danger m-2" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                    </p>
                 {% endif %}
             </div>
 

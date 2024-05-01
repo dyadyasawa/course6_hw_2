@@ -9,7 +9,7 @@ class StyleMixin(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            if field_name != 'current_version_indicator' and field_name != 'publication_sign':
+            if field_name != 'current_version_indicator' and field_name != 'publication_sign' and field_name != 'is_published':
 
                 field.widget.attrs["class"] = "form-control"
 
@@ -49,6 +49,30 @@ class ProductForm(StyleMixin):
             if word in cleaned_data.lower():
                 raise forms.ValidationError('В описании присутствуют недопустимые слова.')
         return cleaned_data
+
+
+class ProductIsPublishedForm(StyleMixin):
+
+    class Meta:
+        model = Product
+        # fields = '__all__'
+        fields = ('is_published',)
+
+
+class ProductDescriptionForm(StyleMixin):
+
+    class Meta:
+        model = Product
+        # fields = '__all__'
+        fields = ('description',)
+
+
+class ProductCategoryForm(StyleMixin):
+
+    class Meta:
+        model = Product
+        # fields = '__all__'
+        fields = ('category',)
 
 
 class BlogForm(StyleMixin):
