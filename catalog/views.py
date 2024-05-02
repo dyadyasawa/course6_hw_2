@@ -1,11 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, BlogForm, ProductIsPublishedForm, ProductDescriptionForm, \
+    ProductCategoryForm
 from catalog.models import Product, Blog, Version, Category
 
 
@@ -73,11 +74,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        return self.object
+
+    def test_func(self):
+        product = self.get_object()
+        user =self.request.user
+        return product.creator == user or user.is_superuser
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -102,6 +112,33 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'catalog_app/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateIsPublishedView(UpdateView, PermissionRequiredMixin):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductIsPublishedForm
+    permission_required = ('Can change product published status',)
+
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateDescriptionView(UpdateView, PermissionRequiredMixin):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductDescriptionForm
+    permission_required = ('Can change product description',)
+
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateCategoryView(UpdateView, PermissionRequiredMixin):
+    model = Product
+    template_name = 'catalog_app/product_form.html'
+    form_class = ProductCategoryForm
+    permission_required = ('Can change product category',)
+
     success_url = reverse_lazy('catalog:home')
 
 
@@ -135,7 +172,7 @@ class BlogDetailView(DetailView):
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'catalog_app/blog_form.html'
-    fields = ('title', 'body', 'preview', 'publication_sign', 'view_count',)
+    form_class = BlogForm
     success_url = reverse_lazy('catalog:blog_list')
 
     def form_valid(self, form):

@@ -32,6 +32,8 @@ class Product(models.Model):
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Создатель')
 
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
+
     def __str__(self):
         return f'{self.name}'
 
@@ -40,7 +42,8 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
         ordering = ('price',)
         permissions = [('can_change_description', 'Can change product description',),
-                       ('can_change_category', 'Can change product category',)]
+                       ('can_change_category', 'Can change product category',),
+                       ('set_published_status', 'Can change product published status',)]
 
 
 class Blog(models.Model):
@@ -60,6 +63,7 @@ class Blog(models.Model):
         verbose_name = 'Блог'
         verbose_name_plural = 'Блоги'
         ordering = ('title',)
+        permissions = [('can_change_publication_sign', 'Can change blog publication_sign',)]
 
 
 class Version(models.Model):
