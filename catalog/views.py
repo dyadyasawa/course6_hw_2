@@ -74,11 +74,13 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
+
+    permission_required = ('Can change Товар',)
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -106,29 +108,29 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateIsPublishedView(PermissionRequiredMixin, UpdateView):
+class ProductUpdateIsPublishedView(UpdateView, PermissionRequiredMixin):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductIsPublishedForm
-    permission_required = ('set_published_status', )
+    permission_required = ('Can change product published status',)
 
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateDescriptionView(PermissionRequiredMixin, UpdateView):
+class ProductUpdateDescriptionView(UpdateView, PermissionRequiredMixin):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductDescriptionForm
-    permission_required = ('can_change_description',)
+    permission_required = ('Can change product description',)
 
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateCategoryView(PermissionRequiredMixin, UpdateView):
+class ProductUpdateCategoryView(UpdateView, PermissionRequiredMixin):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductCategoryForm
-    permission_required = ('can_change_category',)
+    permission_required = ('Can change product category',)
 
     success_url = reverse_lazy('catalog:home')
 

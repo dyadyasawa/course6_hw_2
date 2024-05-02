@@ -50,7 +50,7 @@
                     {% else %}
                         {% if perms.catalog.set_published_status %}
                             <p>
-                                <a class="btn btn-warning" href="{% url 'catalog:update_product_is_published' object.pk %}">Отменить публиацию</a>
+                                <a class="btn btn-warning" href="{% url 'catalog:update_product_is_published' object.pk %}">Статус публикации</a>
                             </p>
                         {% endif %}
                         {% if perms.catalog.can_change_description %}
