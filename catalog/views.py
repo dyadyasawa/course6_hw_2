@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
@@ -74,13 +74,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     template_name = 'catalog_app/product_form.html'
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
-    permission_required = ('Can change Товар',)
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        return self.object
+
+    def test_func(self):
+        product = self.get_object()
+        user =self.request.user
+        return product.creator == user or user.is_superuser
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
