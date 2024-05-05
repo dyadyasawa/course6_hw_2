@@ -8,16 +8,12 @@ from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm, BlogForm, ProductIsPublishedForm, ProductDescriptionForm, \
     ProductCategoryForm
 from catalog.models import Product, Blog, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog_app/home.html'
-
-    # def get_queryset(self, *args, **kwargs):
-    #     queryset = super().get_queryset(*args, **kwargs)
-    #     queryset = queryset.filter(price__lt=5000)
-    #     return queryset
 
 
 class ContactTemplateView(TemplateView):
@@ -213,14 +209,6 @@ class VersionCreateView(CreateView):
     form_class = VersionForm
     template_name = 'catalog_app/version_form.html'
     success_url = reverse_lazy('catalog:version_list')
-#
-# class VersionListView(ListView):
-#     model = Version
-#     template_name = 'catalog_app/version_list.html'
-# #
-# class VersionDetailView(DetailView):
-#     model = Version
-#     template_name = 'catalog_app/version_detail.html'
 
 
 class VersionUpdateView(UpdateView):
@@ -228,9 +216,11 @@ class VersionUpdateView(UpdateView):
     form_class = VersionForm
     template_name = 'catalog_app/version_form.html'
     success_url = reverse_lazy('catalog:version_list')
-#
-#
-# class VersionDeleteView(DeleteView):
-#     model = Version
-#     template_name = 'catalog_app/version_confirm_delete.html'
-#     success_url = reverse_lazy('catalog:version_list')
+
+
+class CategoriesListView(ListView):
+    model = Category
+    template_name = 'catalog_app/categories_list.html'
+
+    def get_queryset(self):
+        return get_categories_from_cache()
