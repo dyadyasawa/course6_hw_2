@@ -13,7 +13,7 @@ app_name = CatalogConfig.name
 urlpatterns = [
     path('', ProductListView.as_view(), name="home"),
     path('contact/', ContactTemplateView.as_view(), name="contact"),
-    path('product_1/<int:pk>', cache_page(60)(ProductDetailView.as_view()), name="product_1"),
+    path('product_detail/<int:pk>', cache_page(60)(ProductDetailView.as_view()), name="product_detail"),
 
     path('create_product/', ProductCreateView.as_view(), name="create_product"),
     path('update_product/<int:pk>/', ProductUpdateView.as_view(), name="update_product"),

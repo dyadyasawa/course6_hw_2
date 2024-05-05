@@ -29,7 +29,7 @@ class ContactTemplateView(TemplateView):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'catalog_app/product_1.html'
+    template_name = 'catalog_app/product_detail.html'
 
     def get_queryset(self):
         queryset = super().get_queryset()
